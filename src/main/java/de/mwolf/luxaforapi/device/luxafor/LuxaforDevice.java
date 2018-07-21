@@ -5,8 +5,10 @@ import de.mwolf.luxaforapi.command.ColorCommand;
 import de.mwolf.luxaforapi.command.FadeCommand;
 import de.mwolf.luxaforapi.command.OffCommand;
 import de.mwolf.luxaforapi.command.StrobeCommand;
+import de.mwolf.luxaforapi.command.WaveCommand;
 import de.mwolf.luxaforapi.device.Device;
 import static de.mwolf.luxaforapi.device.luxafor.Led.ALL;
+import de.mwolf.luxaforapi.type.Wave;
 
 import javax.usb.UsbDevice;
 
@@ -33,6 +35,12 @@ public class LuxaforDevice extends Device {
             final Integer speed, final Integer repeat) {
         
         sendCommand(new StrobeCommand(led, color, speed, repeat));
+    }
+    
+    public void waveColor(final Wave wave, final Color color, 
+            final Integer speed, final Integer repeat) {
+        
+        sendCommand(new WaveCommand(wave, color, speed, repeat));
     }
     
     public void setOff() {
