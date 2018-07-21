@@ -3,7 +3,9 @@ package de.mwolf.luxaforapi.device.luxafor;
 import de.mwolf.luxaforapi.color.Color;
 import de.mwolf.luxaforapi.command.ColorCommand;
 import de.mwolf.luxaforapi.command.FadeCommand;
+import de.mwolf.luxaforapi.command.OffCommand;
 import de.mwolf.luxaforapi.device.Device;
+import static de.mwolf.luxaforapi.device.luxafor.Led.ALL;
 
 import javax.usb.UsbDevice;
 
@@ -22,6 +24,10 @@ public class LuxaforDevice extends Device {
 
     public void fadeColor(final Led led, final Color color, final Integer speed) {
         sendCommand(new FadeCommand(led, color, speed));
+    }
+    
+    public void setOff() {
+        sendCommand(new OffCommand());
     }
 
     @Override
