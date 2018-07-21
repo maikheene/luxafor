@@ -4,6 +4,7 @@ import de.mwolf.luxaforapi.color.Color;
 import de.mwolf.luxaforapi.command.ColorCommand;
 import de.mwolf.luxaforapi.command.FadeCommand;
 import de.mwolf.luxaforapi.command.OffCommand;
+import de.mwolf.luxaforapi.command.StrobeCommand;
 import de.mwolf.luxaforapi.device.Device;
 import static de.mwolf.luxaforapi.device.luxafor.Led.ALL;
 
@@ -22,8 +23,16 @@ public class LuxaforDevice extends Device {
         sendCommand(new ColorCommand(led, color));
     }
 
-    public void fadeColor(final Led led, final Color color, final Integer speed) {
+    public void fadeColor(final Led led, final Color color, 
+            final Integer speed) {
+        
         sendCommand(new FadeCommand(led, color, speed));
+    }
+    
+    public void strobeColor(final Led led, final Color color, 
+            final Integer speed, final Integer repeat) {
+        
+        sendCommand(new StrobeCommand(led, color, speed, repeat));
     }
     
     public void setOff() {
