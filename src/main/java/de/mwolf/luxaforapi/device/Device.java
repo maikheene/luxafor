@@ -5,6 +5,8 @@ import de.mwolf.luxaforapi.exception.LuxaforException;
 
 import javax.usb.*;
 
+import static java.text.MessageFormat.format;
+
 public abstract class Device implements DeviceSpec {
 
     private final UsbDevice usbDevice;
@@ -19,15 +21,15 @@ public abstract class Device implements DeviceSpec {
         this.usbDevice = usbDevice;
     }
 
-    public void sendCommand(final Command command) {
+    public void sendCommand(final Command command) throws LuxaforException {
         try {
             sendCommand(command.getCommandMessage());
         } catch (UsbException e) {
-            throw new LuxaforException();
+            throw new LuxaforException(e);
         }
     }
 
-    private void sendCommand(final byte[] message) throws UsbException {
+    private void sendCommand(final byte[] message) throws UsbException, LuxaforException {
         UsbInterface iface = getIFace();
         try {
             if (detachDeviceDriver()) {
@@ -40,7 +42,9 @@ public abstract class Device implements DeviceSpec {
         }
     }
 
-    private void sendMessageOverUsbPipe(final UsbInterface iface, final byte[] message) throws UsbException {
+    private void sendMessageOverUsbPipe(final UsbInterface iface, final byte[] message)
+            throws UsbException, LuxaforException {
+
         final UsbPipe pipe = getUsbPipe(iface);
 
         pipe.open();
@@ -51,16 +55,18 @@ public abstract class Device implements DeviceSpec {
         }
     }
 
-    private UsbPipe getUsbPipe(final UsbInterface iface) {
+    private UsbPipe getUsbPipe(final UsbInterface iface) throws LuxaforException {
         UsbEndpoint endpoint = iface.getUsbEndpoint(getUsbEndpointNumber());
 
         if (endpoint == null) {
-            throw new LuxaforException();
+            throw new LuxaforException(
+                    format( "Use interface has no endpoint for number {}", getUsbEndpointNumber())
+            );
         }
 
         UsbPipe result = endpoint.getUsbPipe();
         if (result == null) {
-            throw new LuxaforException();
+            throw new LuxaforException("Can't find usb pipe of this endpoint");
         }
 
         return result;
@@ -71,17 +77,19 @@ public abstract class Device implements DeviceSpec {
         return iface;
     }
 
-    private UsbInterface getIFace() {
+    private UsbInterface getIFace() throws LuxaforException {
         final UsbConfiguration configuration = usbDevice.getActiveUsbConfiguration();
 
         if (configuration == null) {
-            throw new LuxaforException();
+            throw new LuxaforException("Can't find active UsbConfiguration");
         }
 
         final UsbInterface result = configuration.getUsbInterface(getUsbInterfaceNumber());
 
         if (result == null) {
-            throw  new LuxaforException();
+            throw  new LuxaforException(
+                    format("Can't find UsbInterface for number {0}", getUsbInterfaceNumber())
+            );
         }
 
         return result;

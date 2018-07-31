@@ -6,6 +6,8 @@ import javax.usb.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import static java.text.MessageFormat.format;
+
 public class Devices {
 
 
@@ -14,7 +16,7 @@ public class Devices {
         try {
             return findDevice(deviceClass, deviceSpec);
         } catch (UsbException e) {
-            throw new LuxaforException();
+            throw new LuxaforException(e);
         }
     }
 
@@ -25,7 +27,9 @@ public class Devices {
 
         UsbDevice usbDevice = readUsbDevice(services.getRootUsbHub(), deviceSpec);
         if (usbDevice == null) {
-            throw new LuxaforException();
+            throw new LuxaforException(
+                    format("Can't find usb device for class {0}", deviceClass.getClass().getName())
+            );
         }
 
         return createDevice(deviceClass, usbDevice);
@@ -35,7 +39,7 @@ public class Devices {
         try {
             return deviceClass.getConstructor(UsbDevice.class).newInstance(usbDevice);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            throw new LuxaforException();
+            throw new LuxaforException(e);
         }
     }
 
@@ -68,7 +72,7 @@ public class Devices {
         try {
             return deviceClass.getConstructor(UsbDevice.class).newInstance((UsbDevice) null);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            throw new LuxaforException();
+            throw new LuxaforException(e);
         }
     }
 
