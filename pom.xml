@@ -1,21 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>com.github.maikwolf</groupId>
     <artifactId>Luxafor</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
+
+    <name>Luxafor</name>
+    <description>A simple java library that provides simple API to control Luxafor devices</description>
+    <url>https://github.com/maikwolf/luxafor</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Maik Wolf</name>
+            <email>maik.wolf@posteo.de</email>
+            <organization>anderScore GmbH</organization>
+            <organizationUrl>https://www.anderscore.com/en/</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com:maikwolf/luxafor.git</connection>
+        <developerConnection>scm:git:ssh://github.com:maikwolf/luxafor.git</developerConnection>
+        <url>https://github.com/maikwolf/luxafor/tree/master</url>
+    </scm>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <usb4java.version>1.2.0</usb4java.version>
     </properties>
-    
+
     <dependencies>
         <dependency>
             <groupId>org.usb4java</groupId>
             <artifactId>usb4java-javax</artifactId>
-            <version>1.2.0</version>
+            <version>${usb4java.version}</version>
         </dependency>
     </dependencies>
 </project>
