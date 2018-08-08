@@ -11,7 +11,8 @@ import static java.text.MessageFormat.format;
 public class Devices {
 
 
-    public static <T extends Device> T findDevice(final Class<T> deviceClass) {
+    public static <T extends Device> T findDevice(final Class<T> deviceClass) 
+            throws LuxaforException {
         DeviceSpec deviceSpec = readDeviceSpec(deviceClass);
         try {
             return findDevice(deviceClass, deviceSpec);
@@ -21,7 +22,7 @@ public class Devices {
     }
 
     private static <T extends Device> T findDevice(final Class<T> deviceClass, final DeviceSpec deviceSpec)
-            throws UsbException {
+            throws UsbException, LuxaforException {
 
         UsbServices services = UsbHostManager.getUsbServices();
 
@@ -35,7 +36,7 @@ public class Devices {
         return createDevice(deviceClass, usbDevice);
     }
 
-    private static <T extends Device> T createDevice(final Class<T> deviceClass, final UsbDevice usbDevice) {
+    private static <T extends Device> T createDevice(final Class<T> deviceClass, final UsbDevice usbDevice) throws LuxaforException {
         try {
             return deviceClass.getConstructor(UsbDevice.class).newInstance(usbDevice);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
@@ -68,7 +69,7 @@ public class Devices {
     }
 
 
-    private static <T extends Device> DeviceSpec readDeviceSpec(final Class<T> deviceClass) {
+    private static <T extends Device> DeviceSpec readDeviceSpec(final Class<T> deviceClass) throws LuxaforException {
         try {
             return deviceClass.getConstructor(UsbDevice.class).newInstance((UsbDevice) null);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {

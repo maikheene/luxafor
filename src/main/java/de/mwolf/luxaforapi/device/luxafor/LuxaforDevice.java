@@ -9,6 +9,7 @@ import de.mwolf.luxaforapi.command.StrobeCommand;
 import de.mwolf.luxaforapi.command.WaveCommand;
 import de.mwolf.luxaforapi.device.Device;
 import static de.mwolf.luxaforapi.device.luxafor.Led.ALL;
+import de.mwolf.luxaforapi.exception.LuxaforException;
 import de.mwolf.luxaforapi.type.Pattern;
 import de.mwolf.luxaforapi.type.Wave;
 
@@ -23,33 +24,33 @@ public class LuxaforDevice extends Device {
         super(usbDevice);
     }
 
-    public void setColor(final Led led, final Color color) {
+    public void setColor(final Led led, final Color color) throws LuxaforException {
         sendCommand(new ColorCommand(led, color));
     }
 
     public void fadeColor(final Led led, final Color color, 
-            final Integer speed) {
+            final Integer speed) throws LuxaforException {
         
         sendCommand(new FadeCommand(led, color, speed));
     }
     
     public void strobeColor(final Led led, final Color color, 
-            final Integer speed, final Integer repeat) {
+            final Integer speed, final Integer repeat) throws LuxaforException {
         
         sendCommand(new StrobeCommand(led, color, speed, repeat));
     }
     
     public void waveColor(final Wave wave, final Color color, 
-            final Integer speed, final Integer repeat) {
+            final Integer speed, final Integer repeat) throws LuxaforException {
         
         sendCommand(new WaveCommand(wave, color, speed, repeat));
     }
     
-    public void pattern(final Pattern pattern, final Integer repeat) {
+    public void pattern(final Pattern pattern, final Integer repeat) throws LuxaforException {
         sendCommand(new PatternCommand(pattern, repeat));
     }
     
-    public void setOff() {
+    public void setOff() throws LuxaforException {
         sendCommand(new OffCommand());
     }
 
