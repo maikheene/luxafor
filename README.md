@@ -19,6 +19,18 @@ LuxaforDevice luxaforDevice = findDevice(LuxaforDevice.class);
 luxaforDevice.setColor(Led.ALL, Colors.BLUE);
 ```
 
+### Maven
+
+Just add following dependency definitions to your `pom.xml`.
+
+```xml
+<dependency>
+  <groupId>com.github.maikwolf</groupId>
+  <artifactId>Luxafor</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+
 ## Known/Possible Issues
 
 ### Linux
