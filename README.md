@@ -1,5 +1,15 @@
 # Luxafor
 
+<p align="center">
+
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.maikwolf/Luxafor/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.maikwolf/Luxafor)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+    
+<a href="https://twitter.com/intent/follow?screen_name=da_mwolf">
+<img src="https://img.shields.io/twitter/follow/da_mwolf.svg?style=social&logo=twitter"
+alt="follow on Twitter"></a>
+</p>
+
 A simple java library to control your Luxafor device via [usb4java](http://usb4java.org/)
 
 ## About Luxafor
